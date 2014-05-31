@@ -33,7 +33,7 @@ class PaymentMethodsController < ApplicationController
   def create
     #secure_params[:direction] = secure_params[:direction].to_i
     payment_method = PaymentMethod.create(secure_params)
-    render :new, notice: "There was a problem saving this card. Quick Tip: It must be a debit card" if !payment_method || !payment_method.save_to_stripe
+    redirect_to '/payment_methods/new', notice: "There was a problem saving this card. Quick Tip: It must be a debit card" if !payment_method || !payment_method.save_to_stripe
     current_user.payment_methods << payment_method
     redirect_to user_path(current_user) if current_user.save
   end

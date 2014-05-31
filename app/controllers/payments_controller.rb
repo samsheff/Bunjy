@@ -16,7 +16,7 @@ class PaymentsController < ApplicationController
     else
       recipient = User.find_by_email(secure_params[:to_email])
       unless recipient
-        redirect_to user_path(current_user), notice: "That person isn't on Bunjy yet! Once they Create their account, come back and try again"
+        redirect_to '/payments/new', notice: "That person isn't on Bunjy yet! Once they Create their account, come back and try again"
       else
         payment_method = PaymentMethod.find(secure_params[:method_id])
         payment = Payment.create_with_amount(current_user, recipient,
@@ -25,7 +25,7 @@ class PaymentsController < ApplicationController
         if payment
           redirect_to payment_path(payment.id), notice: "Payment Sent Successfully!"
         else
-          redirect_to user_path(current_user), notice: "There was an Error Sending this Payment"
+          redirect_to '/payments/new', notice: "There was an Error Sending this Payment"
         end
       end
     end

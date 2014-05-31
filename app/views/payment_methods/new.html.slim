@@ -1,4 +1,4 @@
-.intro-header
+.intro-header style="height: 100%;"
   .container
     .row
       .col-lg-12
@@ -10,7 +10,7 @@
           br
           .col-lg-4
           .well.col-md-4 style="color: black;"
-            p#payment-errors style="color: black;"
+            == render 'layouts/messages'
             form.form-inline#addDebitCardForm action="/payment_methods" method="POST"
               .input-group style="padding-bottom: 5px;"
                 input.form-control placeholder="Nickname" size="21" name="payment_method[name]"

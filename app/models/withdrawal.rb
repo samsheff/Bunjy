@@ -22,5 +22,6 @@ class Withdrawal < ActiveRecord::Base
     end
 
     user.save!
+    user.withdrawals.last
   end
 end

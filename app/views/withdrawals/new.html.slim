@@ -1,4 +1,4 @@
-.intro-header
+.intro-header style="height: 100%;"
   .container
     .row
       .col-lg-12
@@ -13,7 +13,7 @@
             h3 style="color: black;"
               | Withdraw Money
             == render 'layouts/messages'
-            form.form-inline#sendMoneyForm action="/payments" method="POST"
+            form.form-inline#sendMoneyForm action="/withdrawals" method="POST"
               .input-group style="padding-bottom: 5px;"
                 input.form-control size="20" placeholder="Amount" name="payment[amount]"
               br
