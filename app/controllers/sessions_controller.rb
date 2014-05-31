@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
     if user.email.blank?
       redirect_to edit_user_path(user), :alert => "Please enter your email address."
     else
-      redirect_to root_url, :notice => 'Signed in!'
+      redirect_to new_payment_method_path
     end
 
   end

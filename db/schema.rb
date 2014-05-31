@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140530170503) do
+ActiveRecord::Schema.define(version: 20140530233408) do
+
+  create_table "payment_methods", force: true do |t|
+    t.string   "method_type"
+    t.string   "name"
+    t.string   "email"
+    t.string   "stripe_token"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "stripe_customer_id"
+    t.string   "stripe_recipient_id"
+    t.integer  "direction"
+  end
+
+  add_index "payment_methods", ["user_id"], name: "index_payment_methods_on_user_id"
 
   create_table "payments", force: true do |t|
     t.integer  "user_id"
@@ -50,5 +65,14 @@ ActiveRecord::Schema.define(version: 20140530170503) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+
+  create_table "withdrawals", force: true do |t|
+    t.integer  "user_id"
+    t.decimal  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "withdrawals", ["user_id"], name: "index_withdrawals_on_user_id"
 
 end

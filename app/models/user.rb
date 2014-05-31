@@ -1,8 +1,10 @@
 class User < ActiveRecord::Base
   rolify
-  validates_presence_of :name
+  validates_presence_of :name, :balance
+  validates_uniqueness_of :email
 
   has_many :payments
+  has_many :payment_methods
 
   def self.create_with_omniauth(auth)
     create! do |user|
@@ -16,6 +18,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.find_by_email(email)
+    User.where(email: email).first
+  end
+
   def send_money_to(user, amount)
     Payment.create_with_amount(current_user, user, amount)
   end
@@ -26,5 +32,9 @@ class User < ActiveRecord::Base
 
   def add_to_balance(amount)
     self.balance += amount
-  end  
+  end
+
+  def new_user?
+    self.payment_methods.empty?
+  end
 end

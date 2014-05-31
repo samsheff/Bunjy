@@ -9,12 +9,11 @@ html[lang="en"]
     link[rel="shortcut icon" type="image/x-icon" href="http://www.rubycoin.org/favicon.ico"]
     title
       = content_for?(:title) ? yield(:title) : 'Bunjy'
-    link[href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"]
+    link[href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"]
     link[href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"]
     == stylesheet_link_tag "application", :media => 'all', 'data-turbolinks-track' => true
     == javascript_include_tag 'application', 'data-turbolinks-track' => true
     == csrf_meta_tags    
-    style[type="text/css"]
   body
     == render 'layouts/navigation'
     == render 'layouts/messages'

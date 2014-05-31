@@ -1,0 +1,36 @@
+.intro-header
+  .container
+    .row
+      .col-lg-12
+        .intro-message
+          h1
+            | Howdy, #{@user.name}
+          h3
+            | Your Current Balance is $#{@user.balance}
+          br
+          .col-lg-4
+          .well.col-md-4
+            h3 style="color: black;"
+              | Send a Payment
+            == render 'layouts/messages'
+            form.form-inline#sendMoneyForm action="/payments" method="POST"
+              .form-group style="padding-bottom: 5px;"
+                input.form-control placeholder="Recipient's Email" size="20" name="payment[to_email]"
+              br
+              .input-group style="padding-bottom: 5px;"
+                input.form-control size="20" placeholder="Amount" name="payment[amount]"
+              br
+              select.form-control placeholder="Payment Method" name="payment[method_id]"
+                - @user.payment_methods.each do |p|
+                  - if p.inbound?
+                    option value=p.id
+                      | #{p.name}
+                option value="new"
+                  | New Payment Method
+              br
+              br
+              input name="authenticity_token" type="hidden" value=form_authenticity_token
+              button.btn.btn-default.btn-lg[href="#" target="_blank"]
+                i.fa.fa-credit-card.fa-fw
+                span.network-name
+                  | Send Money

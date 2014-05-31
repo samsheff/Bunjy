@@ -4,10 +4,12 @@ class UsersController < ApplicationController
 
   def index
     @user = current_user
+    redirect_to user_edit_path(@user) if current_user.new_user?
   end
 
   def edit
     @user = User.find(params[:id])
+    render :setup if @user.new_user?
   end
 
   def update
