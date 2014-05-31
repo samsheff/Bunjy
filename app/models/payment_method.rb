@@ -29,7 +29,7 @@ class PaymentMethod < ActiveRecord::Base
       end
     end
 
-    self.save!
+    self.save
   end
 
   def inbound?
