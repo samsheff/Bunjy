@@ -21,7 +21,10 @@ class Withdrawal < ActiveRecord::Base
       return false
     end
 
-    user.save!
-    user.withdrawals.last
+    if user.save
+      user.withdrawals.last
+    else
+      false
+    end
   end
 end

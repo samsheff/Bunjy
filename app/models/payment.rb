@@ -6,7 +6,7 @@ class Payment < ActiveRecord::Base
     amount = BigDecimal.new(amount)
     return false if amount <= 0.0
     return false if amount >= 1500.0
-    return false if sender.email == recipient.email
+    #return false if sender.email == recipient.email
 
     sender.payments << Payment.create!(user: sender, amount: -1 * amount,
                                      description: options[:description],
@@ -29,8 +29,10 @@ class Payment < ActiveRecord::Base
                                           action: "recieved")
     recipient.add_to_balance(amount)
 
-    sender.save!
-    recipient.save!
-    sender.payments.last
+    if recipient.save and sender.save
+      sender.payments.last
+    else
+      false
+    end
   end
 end

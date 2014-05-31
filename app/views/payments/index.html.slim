@@ -1,0 +1,36 @@
+.intro-header
+  .container
+    .row
+      .col-lg-12
+        .intro-message
+          h1
+            | Account Activity
+          h3
+            | Your Current Balance is $#{@user.balance}
+          br
+          .col-sm-2
+          .well.col-md-8 style="color: black;"
+            h3
+              | Transactions
+            == render 'layouts/messages'
+            table.table
+              thead
+                tr
+                  td
+                    | Type
+                  td
+                    | Amount
+                  td
+                    | Description
+              tbody
+                - for t in @transactions
+                  tr
+                    td
+                      - if t.is_a?(Withdrawal)
+                        | Withdrawal
+                      - elsif t.is_a?(Payment)
+                        | Payment
+                    td
+                      | $#{t.amount.to_s}
+                    td
+                      | #{time_ago_in_words(t.created_at, include_seconds: true)}

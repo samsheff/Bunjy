@@ -1,6 +1,10 @@
 class PaymentsController < ApplicationController
   before_filter :authenticate_user!
 
+  def index
+    @user = current_user
+    @transactions = current_user.all_account_activity
+  end
   def show
     @user = current_user
     @method = Payment.find(params[:id])
@@ -23,7 +27,7 @@ class PaymentsController < ApplicationController
                                            secure_params[:amount],
                                            payment_method)
         if payment
-          redirect_to payment_path(payment.id), notice: "Payment Sent Successfully!"
+          redirect_to payments_path, notice: "Payment Sent Successfully!"
         else
           redirect_to '/payments/new', notice: "There was an Error Sending this Payment"
         end

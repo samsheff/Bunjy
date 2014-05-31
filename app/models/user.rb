@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   rolify
   validates_presence_of :name, :balance
   validates_uniqueness_of :email
+  validates :balance, :numericality => { :greater_than_or_equal_to => 0 }
 
   has_many :payments
   has_many :withdrawals
@@ -42,6 +43,16 @@ class User < ActiveRecord::Base
 
   def add_to_balance(amount)
     self.balance += amount
+  end
+
+  def all_account_activity
+    activity = []
+
+    self.payments.last(5).each { |p| activity << p }
+    self.withdrawals.last(5).each { |w| activity << w }
+
+    activity.sort_by! { |t| t.created_at }
+    activity.reverse
   end
 
 end
