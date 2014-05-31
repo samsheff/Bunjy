@@ -44,7 +44,4 @@ class User < ActiveRecord::Base
     self.balance += amount
   end
 
-  def new_user?
-    self.payment_methods.empty?
-  end
 end
