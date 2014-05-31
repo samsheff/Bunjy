@@ -1,4 +1,4 @@
-.intro-header style="height: 100%;"
+.intro-header style="height: 110%;"
   .container
     .row
       .col-lg-12
@@ -6,39 +6,42 @@
           h1
             | Get Paid
           h3
-            | Enter a Debit Card below
+            | Add a Payment Method
           br
-          .col-lg-4
-          .well.col-md-4 style="color: black;"
-            == render 'layouts/messages'
-            form.form-inline#addDebitCardForm action="/payment_methods" method="POST"
-              .input-group style="padding-bottom: 5px;"
-                input.form-control placeholder="Nickname" size="21" name="payment_method[name]"
-              br
-              .input-group style="padding-bottom: 5px;"
-                input.form-control data-stripe="number" size="21" placeholder="Card Number"
-              br
-              input.form-control data-stripe="cvc" placeholder="CVC" size="4"
-              | &nbsp
-              input.form-control data-stripe="exp-month" size="2" placeholder="01" width="50%"
-              | &nbsp
-              input.form-control data-stripe="exp-year" size="4" placeholder="2016" width="50%"
-              br
-              br
-              input name="payment_method[method_type]" type="hidden" value="card"
-              .radio
-                label
-                  input name="payment_method[direction]" type="radio" value="1" 
-                    | &nbspUse This Payment Method For Sending Money
-              .radio
-                label
-                  input name="payment_method[direction]" type="radio" value="-1" 
-                    | &nbspUse This Payment Method For Withdrawals
-              br
-              br
-              input name="authenticity_token" type="hidden" value=form_authenticity_token
-              button.btn.btn-default.btn-lg[href="#" target="_blank"]
-                i.fa.fa-credit-card.fa-fw
-                span.network-name
-                  | Save Card
+          .col-lg-4.col-md-4.col-sm-4
+          .well.col-lg-4.col-md-4.col-sm-12.col-xs-12 style="color: black;"
+            br
+            center
+              == render 'layouts/messages'
+              form.form-inline#addDebitCardForm action="/payment_methods" method="POST"
+                .input-group style="padding-bottom: 5px;"
+                  input.form-control placeholder="Nickname" size="21" name="payment_method[name]"
+                br
+                .input-group style="padding-bottom: 5px;"
+                  input.form-control data-stripe="number" size="21" placeholder="Card Number"
+                .input-group style="padding-bottom: 5px;"
+                  input.form-control data-stripe="cvc" placeholder="CVC" size="4"
+                  | &nbsp
+                  input.form-control data-stripe="exp-month" size="2" placeholder="MM"
+                  | &nbsp
+                  input.form-control data-stripe="exp-year" size="4" placeholder="YYYY"
+                br
+                br
+                .input-group style="padding-bottom: 5px;"
+                  input name="payment_method[method_type]" type="hidden" value="card"
+                  .radio
+                    label
+                      input name="payment_method[direction]" type="radio" value="1" 
+                        | &nbspUse This Payment Method For Sending Money
+                  .radio
+                    label
+                      input name="payment_method[direction]" type="radio" value="-1" 
+                        | &nbspUse This Payment Method For Withdrawals
+                br
+                br
+                input name="authenticity_token" type="hidden" value=form_authenticity_token
+                button.btn.btn-default.btn-lg[href="#" target="_blank"]
+                  i.fa.fa-credit-card.fa-fw
+                  span.network-name
+                    | Save Card
   == javascript_include_tag 'add_debit_card'

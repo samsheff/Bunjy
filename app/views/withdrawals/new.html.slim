@@ -8,26 +8,27 @@
           h3
             | Your Current Balance is $#{@user.balance}
           br
-          .col-lg-4
-          .well.col-md-4
-            h3 style="color: black;"
-              | Withdraw Money
-            == render 'layouts/messages'
-            form.form-inline#sendMoneyForm action="/withdrawals" method="POST"
-              .input-group style="padding-bottom: 5px;"
-                input.form-control size="20" placeholder="Amount" name="payment[amount]"
-              br
-              select.form-control placeholder="Payment Method" name="payment[method_id]"
-                - @user.payment_methods.each do |p|
-                  - if p.outbound?
-                    option value=p.id
-                      | #{p.name}
-                option value="new"
-                  | New Payment Method
-              br
-              br
-              input name="authenticity_token" type="hidden" value=form_authenticity_token
-              button.btn.btn-default.btn-lg[href="#" target="_blank"]
-                i.fa.fa-credit-card.fa-fw
-                span.network-name
-                  | Withdraw Money
+          .col-lg-4.col-md-4.col-sm-4
+          .well.col-lg-4.col-md-4.col-sm-4.col-xs-12 style="color: black;"
+            center
+              h3
+                | Withdraw Money
+              == render 'layouts/messages'
+              form.form-inline#sendMoneyForm action="/withdrawals" method="POST"
+                .input-group style="padding-bottom: 5px;"
+                  input.form-control size="26" placeholder="Amount" name="payment[amount]"
+                .input-group style="padding-bottom: 5px;"
+                  select.form-control placeholder="Payment Method" name="payment[method_id]"
+                    - @user.payment_methods.each do |p|
+                      - if p.outbound?
+                        option value=p.id
+                          | #{p.name}
+                    option value="new"
+                      | New Payment Method
+                  br
+                  br
+                  input name="authenticity_token" type="hidden" value=form_authenticity_token
+                  button.btn.btn-default.btn-lg[href="#" target="_blank"]
+                    i.fa.fa-credit-card.fa-fw
+                    span.network-name
+                      | Withdraw Money
