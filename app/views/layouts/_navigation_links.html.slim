@@ -1,0 +1,10 @@
+- if user_signed_in?
+  li
+    = link_to 'Send Money', new_payment_path
+  li
+    = link_to 'Withdraw Money', new_withdrawal_path
+  li
+    = link_to 'Sign out', signout_path
+- else
+  li
+    = link_to 'Log In', signin_path
