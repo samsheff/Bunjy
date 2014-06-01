@@ -21,7 +21,7 @@
                   td
                     | Amount
                   td
-                    | Description
+                    | Time
               tbody
                 - for t in @transactions
                   tr
@@ -33,4 +33,4 @@
                     td
                       | $#{t.amount.to_s}
                     td
-                      | #{time_ago_in_words(t.created_at, include_seconds: true)}
+                      | #{time_ago_in_words(t.created_at, include_seconds: true)} ago
