@@ -2,7 +2,8 @@ class Payment < ActiveRecord::Base
   belongs_to :user
   has_one :payment_method
 
-  def self.create_with_amount(sender, recipient, amount, payment_method, options={})
+  def self.create_with_amount(sender, recipient, amount,
+                              payment_method, options={})
     amount = BigDecimal.new(amount)
     return false if amount <= 0.0
     return false if amount >= 1500.0
@@ -11,18 +12,8 @@ class Payment < ActiveRecord::Base
     sender.payments << Payment.create!(user: sender, amount: -1 * amount,
                                      description: options[:description],
                                      action: "sent")
+    payment_method.charge_stripe_card
     sender.debit_from_balance(amount)
-
-    begin
-      charge = Stripe::Charge.create(
-        :amount => amount.to_i * 100, # amount in cents, again
-        :currency => "usd",
-        :customer => payment_method.stripe_customer_id,
-        :description => "From: #{sender.email} To: #{recipient.email}"
-      )
-    rescue Stripe::CardError => e
-      return false
-    end
 
     recipient.payments << Payment.create!(user: sender, amount: amount,
                                           description: options[:description],

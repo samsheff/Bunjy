@@ -44,4 +44,17 @@ class PaymentMethod < ActiveRecord::Base
       return e
     end
   end
+
+  def charge_stripe_card
+    begin
+      Stripe::Charge.create(
+        :amount => amount.to_i * 100, # amount in cents
+        :currency => "usd",
+        :customer => payment_method.stripe_customer_id,
+        :description => "From: #{sender.email} To: #{recipient.email}"
+      )
+    rescue
+      return false
+    end
+  end
 end
