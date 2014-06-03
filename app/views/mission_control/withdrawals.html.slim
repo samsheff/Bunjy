@@ -1,0 +1,18 @@
+table.table.table-striped
+  thead
+    tr
+      th #
+      th User
+      th Amount
+  tbody
+    - for p in @app_withdrawals
+      tr
+        td 
+          | #{p.id}
+        td 
+          - if p.user
+            | #{p.user.name} (#{p.user.email})
+          - else
+            | Unknown
+        td 
+          | #{p.amount.abs}

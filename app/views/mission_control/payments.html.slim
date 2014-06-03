@@ -1,0 +1,21 @@
+table.table.table-striped
+  thead
+    tr
+      th #
+      th Action
+      th User
+      th Amount
+  tbody
+    - for p in @app_payments
+      tr
+        td 
+          | #{p.id}
+        td 
+          | #{p.action_string}
+        td 
+          - if p.user
+            | #{p.user.name} (#{p.user.email})
+          - else
+            | Unknown
+        td 
+          | $#{p.amount.abs}

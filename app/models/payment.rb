@@ -35,4 +35,9 @@ class Payment < ActiveRecord::Base
       false
     end
   end
+
+  def action_string
+    return "Sent" if self.amount < 0.0
+    "Recieved"
+  end
 end

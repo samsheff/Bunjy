@@ -33,6 +33,52 @@ class User < ActiveRecord::Base
     User.where(uid: uid).first
   end
 
+  def is_any_admin?
+    return true if self.super_admin? or self.admin?
+    false
+  end
+
+  def super_admin?
+    return true if self.has_role? :super_admin
+    false
+  end
+
+  def admin?
+    return true if self.has_role? :admin
+    false
+  end
+
+  def customer?
+    return true if self.has_role? :customer
+    false
+  end
+
+  def locked?
+    return true if self.active == false
+    false    
+  end
+
+  def unlocked?
+    return true if self.active == true
+    false    
+  end
+
+  def role_name
+    return "Super Admin" if self.super_admin?
+    return "Admin" if self.admin?
+    return "User" if self.customer?
+  end
+
+  def active_string
+    return "Yes" if self.active?
+    "No"
+  end
+
+  def change_role_to(role)
+    self.roles = []
+    self.add_role(role)
+  end
+
   def send_money_to(user, amount)
     Payment.create_with_amount(current_user, user, amount)
   end

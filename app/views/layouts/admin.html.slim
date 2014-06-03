@@ -1,0 +1,59 @@
+doctype html
+html
+  head
+    meta[http-equiv="Content-Type" content="text/html; charset=UTF-8"]
+    meta[charset="utf-8"]
+    meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+    title
+      | Bunjy | Mission Control
+    link[href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"]
+    link[href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"]
+    style[type="text/css"]
+      | .jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;
+    == stylesheet_link_tag "admin", :media => 'all', 'data-turbolinks-track' => true
+    == javascript_include_tag 'admin', 'data-turbolinks-track' => true
+  body.pace-done
+    .pace.pace-inactive
+      .pace-progress[data-progress-text="100%" data-progress="99" style="width: 100%;"]
+        .pace-progress-inner
+      .pace-activity
+    #wrapper
+      nav.navbar-default.navbar-static-side[role="navigation"]
+        .sidebar-collapse
+          ul#side-menu.nav
+            li.nav-header
+              .dropdown.profile-element
+                span
+                  img.img-circle alt="image" src=image_url('admin_profile_pic.png')
+                a.dropdown-toggle[data-toggle="dropdown" href="#"]
+                  span.clear
+                    span.block.m-t-xs
+                      strong.font-bold
+                        | #{@user.name}
+                    span.text-muted.text-xs.block
+                      | #{@user.role_name}
+              .logo-element
+                |  Bunjy
+
+            li
+              a[href="/"]
+                i.fa.fa-arrow-left
+                span.nav-label
+                  | Back to App            
+            li
+              a[href="/mission-control/users"]
+                i.fa.fa-users
+                span.nav-label
+                  | Users
+            li
+              a[href="/mission-control/payments"]
+                i.fa.fa-usd
+                span.nav-label
+                  | Payments 
+            li
+              a[href="/mission-control/withdrawals"]
+                i.fa.fa-money
+                span.nav-label
+                  | Withdrawals
+      #page-wrapper.gray-bg
+        == yield

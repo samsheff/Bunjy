@@ -1,0 +1,33 @@
+table.table.table-bordered
+  thead
+    tr
+      th #
+      th Name
+      th Email
+      th Role
+      th Active
+      th Balance
+      th # of Payments
+      th # of Withdrawals
+      th # of Payment Methods
+  tbody
+    - for user in @app_users
+      tr
+        td 
+          | #{user.id}
+        td 
+          | #{user.name}
+        td 
+          | #{user.email}
+        td 
+          | #{user.role_name}
+        td 
+          | #{user.active_string}
+        td 
+          | $#{user.balance}
+        td 
+          | #{user.payments.count}
+        td 
+          | #{user.withdrawals.count}
+        td 
+          |#{user.payment_methods.count}
