@@ -844,7 +844,7 @@ ul.notes li div{
 .file-manager h5 {
     text-transform: uppercase;
 }
-    }
+
 .file-manager {
     list-style: none outside none;
     margin: 0;
@@ -1696,7 +1696,7 @@ button.dim:active:before {
     color: #FFFFFF;
 }
 .label-inverse, .badge-inverse {
-    background-color: @262626;
+    background-color: #262626;
     color: #FFFFFF;
 }
 .label-white, .badge-white {
