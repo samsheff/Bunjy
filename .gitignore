@@ -24,6 +24,9 @@ db/*.sqlite3
 # Dump Truck
 .dumptruck
 
+# Pow Artifacts
+.powenv
+
 # various artifacts
 **.war
 *.rbc

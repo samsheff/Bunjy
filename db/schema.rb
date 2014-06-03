@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140530233408) do
+ActiveRecord::Schema.define(version: 20140602221350) do
 
   create_table "payment_methods", force: true do |t|
     t.string   "method_type"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20140530233408) do
     t.decimal  "balance"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "active"
   end
 
   create_table "users_roles", id: false, force: true do |t|
