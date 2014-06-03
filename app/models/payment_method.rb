@@ -45,16 +45,29 @@ class PaymentMethod < ActiveRecord::Base
     end
   end
 
-  def charge_stripe_card
+  def charge_stripe_card(amount)
     begin
       Stripe::Charge.create(
         :amount => amount.to_i * 100, # amount in cents
         :currency => "usd",
-        :customer => payment_method.stripe_customer_id,
+        :customer => self.stripe_customer_id,
         :description => "From: #{sender.email} To: #{recipient.email}"
       )
     rescue
       return false
     end
+  end
+
+  def withdraw_to_card(amount)
+    begin
+      Stripe::Transfer.create(
+        :amount => amount.to_i * 100, # amount in cents
+        :currency => "usd",
+        :recipient => self.stripe_recipient_id,
+        :statement_description => "BUNJY WITHDRAWAL"
+      )
+    rescue
+      return false
+    end    
   end
 end

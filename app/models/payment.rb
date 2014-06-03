@@ -12,7 +12,7 @@ class Payment < ActiveRecord::Base
     sender.payments << Payment.create!(user: sender, amount: -1 * amount,
                                      description: options[:description],
                                      action: "sent")
-    payment_method.charge_stripe_card
+    return false unless payment_method.charge_stripe_card(amount)
     sender.debit_from_balance(amount)
 
     recipient.payments << Payment.create!(user: sender, amount: amount,
