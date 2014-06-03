@@ -3,7 +3,7 @@ class MissionControlController < ApplicationController
   layout "admin"
 
   def index
-    redirect_to '/mission-control/users' if !current_user.is_any_admin?    
+    redirect_to '/mission-control/users' if current_user.is_any_admin?    
   end
 
   def users
@@ -26,7 +26,7 @@ class MissionControlController < ApplicationController
 
   private
   def is_admin
-    redirect_to root_url if !current_user.is_any_admin?
+    redirect_to root_url if !current_user || !current_user.is_any_admin?
   end
 end
 
