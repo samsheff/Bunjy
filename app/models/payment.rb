@@ -7,23 +7,27 @@ class Payment < ActiveRecord::Base
     amount = BigDecimal.new(amount)
     return false if amount <= 0.0
     return false if amount >= 1500.0
+    payment_status = payment_method.charge_stripe_card(amount)
     #return false if sender.email == recipient.email
+    
+    if payment_status == true
+      sender.payments << Payment.create!(user: sender, amount: -1 * amount,
+                                       description: options[:description],
+                                       action: "sent")
+      sender.debit_from_balance(amount)
 
-    sender.payments << Payment.create!(user: sender, amount: -1 * amount,
-                                     description: options[:description],
-                                     action: "sent")
-    return false unless payment_method.charge_stripe_card(amount)
-    sender.debit_from_balance(amount)
+      recipient.payments << Payment.create!(user: sender, amount: amount,
+                                            description: options[:description],
+                                            action: "recieved")
+      recipient.add_to_balance(amount)
 
-    recipient.payments << Payment.create!(user: sender, amount: amount,
-                                          description: options[:description],
-                                          action: "recieved")
-    recipient.add_to_balance(amount)
-
-    if recipient.save and sender.save
-      sender.payments.last
+      if recipient.save and sender.save
+        return sender.payments.last
+      else
+        return false
+      end
     else
-      false
+      return payment_status
     end
   end
 

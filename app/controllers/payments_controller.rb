@@ -29,7 +29,7 @@ class PaymentsController < ApplicationController
         if payment
           redirect_to payments_path, notice: "Payment Sent Successfully!"
         else
-          redirect_to '/payments/new', notice: "There was an Error Sending this Payment"
+          redirect_to '/payments/new', notice: payment || "There was an Error Sending this Payment"
         end
       end
     end

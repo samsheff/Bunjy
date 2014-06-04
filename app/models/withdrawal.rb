@@ -7,14 +7,18 @@ class Withdrawal < ActiveRecord::Base
     return false if amount <= 0.0
     return false if amount >= 1500.0
 
-    user.withdrawals << Withdrawal.create!(user: user, amount: -1 * amount)
-    return false unless payment_method.withdraw_to_card(amount)
-    user.debit_from_balance(amount)
+    withdrawal_status = payment_method.withdraw_to_card(amount)
+    if withdrawal_status == true
+      user.withdrawals << Withdrawal.create!(user: user, amount: -1 * amount)
+      user.debit_from_balance(amount)
 
-    if user.save
-      user.withdrawals.last
+      if user.save
+        return user.withdrawals.last
+      else
+        return false
+      end
     else
-      false
+      return withdrawal_status
     end
   end
 end
