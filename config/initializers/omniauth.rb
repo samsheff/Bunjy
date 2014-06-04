@@ -1,4 +1,4 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :facebook, "292495877591711", "f36677aa777a903962b8ca62997b36f1" if !Rails.env.production?
-  provider :facebook, ENV['OMNIAUTH_PROVIDER_KEY'], ENV['OMNIAUTH_PROVIDER_SECRET'] if Rails.env.production?
+  provider :facebook, ENV['FACEBOOK_PROVIDER_KEY'], ENV['FACEBOOK_PROVIDER_SECRET']
+  provider :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"]
 end

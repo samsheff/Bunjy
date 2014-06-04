@@ -1,7 +1,8 @@
 class SessionsController < ApplicationController
 
   def new
-    redirect_to '/auth/facebook'
+    redirect_to '/auth/facebook' if params[:provider] == "facebook"
+    redirect_to '/auth/google_oauth2' if params[:provider] == "google"
   end
 
   def create

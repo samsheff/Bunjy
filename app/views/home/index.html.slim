@@ -16,10 +16,15 @@
             | The Kick-Ass Way to Pay - Sign Up for Bunjy Today
           ul.list-inline.intro-social-buttons[style="padding-top:30px;"]
             li
-              a.btn.btn-default.btn-lg[href="/signin" target="_blank"]
+              a.btn.btn-default.btn-lg[href="/signin?provider=facebook" target="_blank"]
                 i.fa.fa-facebook.fa-fw
                 span.network-name
                   | Sign Up with Facebook
+            li
+              a.btn.btn-default.btn-lg[href="/signin?provider=google" target="_blank"]
+                i.fa.fa-google.fa-fw
+                span.network-name
+                  | Sign Up with Google
 #whatisbunjy.content-section-b
   .container
     .row
