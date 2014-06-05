@@ -13,6 +13,7 @@
             br
             center
               == render 'layouts/messages'
+              div#payment-errors
               form.form-inline#addDebitCardForm action="/payment_methods" method="POST"
                 .input-group style="padding-bottom: 5px;"
                   input.form-control placeholder="Nickname" size="21" name="payment_method[name]"

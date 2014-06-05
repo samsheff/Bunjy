@@ -16,6 +16,7 @@ function stripeResponseHandler(status, response) {
   if (response.error) {
       // show the errors on the form
       $("#payment-errors").text(response.error.message);
+      $('#addDebitCardForm').find('button').prop('disabled', false);
   } else {
       var form$ = $("#addDebitCardForm");
       // token contains id, last4, and card type
