@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
       user.name = auth['info']['name'] || ""
       user.email = auth['info']['email'] || ""
       user.balance = 0.0
+      user.active = true
     end
   end
 
@@ -54,6 +55,17 @@ class User < ActiveRecord::Base
     return true if self.active == true
     false    
   end
+
+  def activate!
+    self.active = true
+    self.save
+  end
+
+  def deactivate!
+    self.active = false
+    self.save
+  end
+  
 
   def role_name
     return "Super Admin" if self.super_admin?
