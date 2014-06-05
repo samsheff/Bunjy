@@ -6,30 +6,27 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :current_user=
   helper_method :user_signed_in?
-  helper_method :correct_user?
 
-  protected
+  private
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
+  def current_user=(user)
+    session[:user_id] = user.id
+    @current_user = User.find_by(id: session[:user_id])
+  end  
+
   def signed_in?
     !!current_user
   end
-
-  def current_user=(user)
-    @current_user = user
-    session[:user_id] = user.id
-  end 
 
   def user_signed_in?
     signed_in?
   end
 
   def authenticate_user!
-    if !current_user
-      redirect_to root_url, :alert => 'You need to sign in for access to this page'
-    end
+    redirect_to root_url, :alert => 'You need to sign in for access to this page' unless signed_in?
   end
 
   rescue_from CanCan::AccessDenied do |exception|

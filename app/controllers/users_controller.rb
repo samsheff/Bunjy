@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :ensure_correct_user!
 
   def index
     @user = current_user
@@ -20,7 +21,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    ensure_correct_user?
   end
 
   private
@@ -29,9 +29,9 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email)
   end
 
-  def ensure_correct_user?
-    unless current_user.id == @user.id
-      redirect_to root_url, :alert => "Access denied."
+  def ensure_correct_user!
+    unless current_user.id == params[:id].to_i
+      redirect_to root_url, :alert => "Access denied"
     end
   end
 end

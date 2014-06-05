@@ -8,17 +8,9 @@ class SessionsController < ApplicationController
   def create
     auth = request.env['omniauth.auth']
     # Find an identity here
-    @identity = Identity.find_with_omniauth(auth)
-    
-    if @identity.nil?
-      # If no identity was found, create a brand new one here
-      @identity = Identity.create_with_omniauth(auth)
-    end
-
-    unless @identity.user_id
-      @identity.user = User.create_with_omniauth(auth)
-      @identity.save
-    end
+    @identity = Identity.find_or_create_with_omniauth(auth)
+    @identity.user = User.find_or_create_with_omniauth(auth) unless @identity.user
+    @identity.save
 
     if signed_in?
       if @identity.user == current_user
@@ -36,15 +28,11 @@ class SessionsController < ApplicationController
       end
     else
       if @identity.user
-        # The identity we found had a user associated with it so let's 
-        # just log them in here
-        self.current_user = @identity.user
+        session[:user_id] = @identity.user
         redirect_to user_path(current_user), notice: "Signed in!"
       else
-        # No user associated with the identity so we need to create a new one
-        current_user = @identity.user
-        redirect_to user_path(current_user), notice: "Signed in!"
-      end
+        redirect_to root_url, notice: "There was an error signing you in"
+      end        
     end
   end
 

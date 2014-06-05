@@ -9,8 +9,12 @@ class User < ActiveRecord::Base
   has_many :payment_methods
   has_many :identities
 
-  def self.create_with_omniauth(auth)
-    create do |user|
+  def self.find_or_create_with_omniauth(auth)
+    if user = self.find_by_email(auth['info']['email'])
+      return user
+    end
+
+    create! do |user|
       user.name = auth['info']['name'] || ""
       user.email = auth['info']['email'] || ""
       user.balance = 0.0
