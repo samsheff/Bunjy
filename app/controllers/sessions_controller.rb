@@ -37,8 +37,10 @@ class SessionsController < ApplicationController
         redirect_to user_path(current_user), notice: "Signed in!"
       else
         # No user associated with the identity so we need to create a new one
-        @identity.user = User.create_with_omniauth(auth) if auth['info']
-        @identity.save
+        unless @identity.user
+          @identity.user = User.create_with_omniauth(auth)
+          @identity.save
+        end
         current_user = @identity.user
         redirect_to user_path(current_user), notice: "Signed in!"
       end
