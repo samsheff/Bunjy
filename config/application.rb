@@ -15,8 +15,6 @@ module Bunjy
       g.test_framework :rspec, fixture: true
       g.fixture_replacement :factory_girl, dir: 'spec/factories'
       
-      config.cache_store = :redis_store, ENV['REDISTOGO_URL'] || 'redis://localhost:6379/0/cache', { expires_in: 90.minutes }
-      
       g.view_specs false
       g.helper_specs false
     end
