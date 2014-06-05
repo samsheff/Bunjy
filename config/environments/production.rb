@@ -93,8 +93,8 @@ Bunjy::Application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   config.action_dispatch.rack_cache = {
-    metastore:   ENV['REDISTOGO_URL'] + '1/metastore'
-    entitystore: ENV['REDISTOGO_URL'] + '1/entitystore'
+    metastore:   ENV['REDISTOGO_URL'],
+    entitystore: ENV['REDISTOGO_URL']
   }
 
   # Disable automatic flushing of the log to improve performance.
