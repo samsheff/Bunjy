@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
       user.name = auth['info']['name'] || ""
       user.email = auth['info']['email'] || ""
       user.balance = 0.0
+      user.change_role_to(:customer)
       user.active = true
     end
   end

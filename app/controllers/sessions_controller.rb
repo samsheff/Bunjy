@@ -9,10 +9,15 @@ class SessionsController < ApplicationController
     auth = request.env['omniauth.auth']
     # Find an identity here
     @identity = Identity.find_with_omniauth(auth)
-
+    
     if @identity.nil?
       # If no identity was found, create a brand new one here
       @identity = Identity.create_with_omniauth(auth)
+    end
+
+    unless @identity.user_id
+      @identity.user = User.create_with_omniauth(auth)
+      @identity.save
     end
 
     if signed_in?
@@ -37,10 +42,6 @@ class SessionsController < ApplicationController
         redirect_to user_path(current_user), notice: "Signed in!"
       else
         # No user associated with the identity so we need to create a new one
-        unless @identity.user
-          @identity.user = User.create_with_omniauth(auth)
-          @identity.save
-        end
         current_user = @identity.user
         redirect_to user_path(current_user), notice: "Signed in!"
       end
