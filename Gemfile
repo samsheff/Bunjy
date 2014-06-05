@@ -39,7 +39,7 @@ group :development, :test do
   gem 'thin'
 end
 group :production do
-  gem 'puma'
+  gem 'unicorn'
   gem 'pg'
 end
 group :test do
