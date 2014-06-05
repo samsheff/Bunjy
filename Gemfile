@@ -17,7 +17,6 @@ gem 'rolify'
 gem 'simple_form'
 gem 'slim-rails'
 gem 'stripe'
-gem 'redis-rails'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
@@ -39,7 +38,7 @@ group :development, :test do
   gem 'thin'
 end
 group :production do
-  gem 'thin'
+  gem 'unicorn'
   gem 'pg'
 end
 group :test do
