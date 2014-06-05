@@ -7,6 +7,11 @@
             | Bunjy
           h3
             | Digital Wallet
+            - flash.each do |name, msg|
+              - if msg.is_a?(String)
+                div
+                  em
+                    = content_tag :p, msg
           br
           .container[style="padding-bottom: 15em;"]
             i.fa.fa-cloud.fa-stack-2x[style="font-size: 15em;"]
@@ -16,12 +21,12 @@
             | The Kick-Ass Way to Pay - Sign Up for Bunjy Today
           ul.list-inline.intro-social-buttons[style="padding-top:30px;"]
             li
-              a.btn.btn-default.btn-lg[href="/signin?provider=facebook" target="_blank"]
+              a.btn.btn-default.btn-lg[href="/signin?provider=facebook"]
                 i.fa.fa-facebook.fa-fw
                 span.network-name
                   | Sign Up with Facebook
             li
-              a.btn.btn-default.btn-lg[href="/signin?provider=google" target="_blank"]
+              a.btn.btn-default.btn-lg[href="/signin?provider=google"]
                 i.fa.fa-google.fa-fw
                 span.network-name
                   | Sign Up with Google

@@ -14,7 +14,7 @@ Bunjy::Application.routes.draw do
   get '/mission-control/withdrawals' => 'mission_control#withdrawals'
 
   # Auth
-  get '/auth/:provider/callback' => 'sessions#create'
+  match '/auth/:provider/callback' => 'sessions#create', via: [:get, :post]
   get '/signin' => 'sessions#new', :as => :signin
   get '/signout' => 'sessions#destroy', :as => :signout
   get '/auth/failure' => 'sessions#failure'
