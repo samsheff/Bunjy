@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    reset_session
+    end_session
     redirect_to root_url, :notice => 'Signed out!'
   end
 
@@ -45,4 +45,9 @@ class SessionsController < ApplicationController
     redirect_to root_url, :alert => "Authentication error: #{params[:message].humanize}"
   end
 
+  private
+  def end_session
+    session.destroy
+    @current_user = nil
+  end
 end
