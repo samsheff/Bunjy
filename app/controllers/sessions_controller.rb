@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
       end
     else
       if @identity.user
-        session[:user_id] = @identity.user
+        current_user = @identity.user
         redirect_to user_path(current_user), notice: "Signed in!"
       else
         redirect_to root_url, notice: "There was an error signing you in"
