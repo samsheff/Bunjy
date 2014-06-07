@@ -30,6 +30,18 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => 'You need to sign in for access to this page' unless signed_in?
   end
 
+  def end_session
+    session.destroy
+    @current_user = nil
+  end
+
+  def active_account!
+    if current_user && current_user.locked?
+      end_session
+      redirect_to '/locked', notice: "This account is currently locked"
+    end   
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_path, :alert => exception.message
   end

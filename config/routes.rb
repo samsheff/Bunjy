@@ -6,6 +6,7 @@ Bunjy::Application.routes.draw do
   resources :payments, :only => [:index, :show, :new, :create]
   resources :withdrawals, :only => [:index, :show, :new, :create]
   resources :payment_methods
+  get '/locked' => 'users#locked'
 
   # Mission Control
   get '/mission-control' => 'mission_control#index'

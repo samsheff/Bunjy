@@ -1,5 +1,6 @@
 class PaymentsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :active_account!  
 
   def index
     @user = current_user

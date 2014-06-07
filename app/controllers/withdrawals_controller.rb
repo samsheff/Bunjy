@@ -1,5 +1,6 @@
 class WithdrawalsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :active_account!
 
   def show
     @user = current_user
