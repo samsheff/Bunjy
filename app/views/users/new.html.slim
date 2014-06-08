@@ -16,15 +16,27 @@
             center
               form.form-inline action="/users" method="POST"
                 .input-group style="padding-bottom: 5px;"
-                  input.form-control placeholder="Your Full Name" size="20" name="user[name]"
+                  input.form-control.sign-up-button placeholder="Your Full Name" name="user[name]"
                 .input-group style="padding-bottom: 5px;"
-                  input.form-control size="20" placeholder="Email" name="user[email]"
+                  input.form-control.sign-up-button placeholder="Email" name="user[email]"
                 .input-group style="padding-bottom: 5px;"
-                  input.form-control placeholder="Password" type="password" size="20" name="user[password]"
-                br
+                  input.form-control.sign-up-button placeholder="Password" type="password" name="user[password]"
                 input name="authenticity_token" type="hidden" value=form_authenticity_token
-                button.btn.btn-default.btn-lg[href="#"]
+                button.btn.btn-default.btn-lg.social-btn[href="#"]
                   i.fa.fa-star.fa-fw
                   span.network-name
                     | Sign Up!
-
+                br
+              .vert-spacer
+                em.thin.black
+                  | - or connect with a social profile -
+              .top-spacer
+                a.btn.btn-default.btn-lg.social-btn[href="/signin?provider=facebook"]
+                  i.fa.fa-facebook.fa-fw
+                  span.network-name
+                    | Sign Up
+              .top-spacer
+                a.btn.btn-default.btn-lg.social-btn[href="/signin?provider=google"]
+                  i.fa.fa-google.fa-fw
+                  span.network-name
+                    | Sign Up

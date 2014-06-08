@@ -1,4 +1,4 @@
-.intro-header
+.intro-header style="height: 110%;"
   .container
     .row
       .col-lg-12
@@ -19,7 +19,14 @@
           br
           h3[style=""]
             | The Kick-Ass Way to Pay - Sign Up for Bunjy Today
-          ul.list-inline.intro-social-buttons[style="padding-top:30px;"]
+          ul.list-inline.intro-social-buttons
+            a.btn.btn-default.btn-lg[href="/signin"]
+              i.fa.fa-star.fa-fw
+              span.network-name
+                | Sign Up with Email
+          em.font-2x.thin
+            | - or connect with a social profile -
+          ul.list-inline.intro-social-buttons.top-spacer-lg
             li
               a.btn.btn-default.btn-lg[href="/signin?provider=facebook"]
                 i.fa.fa-facebook.fa-fw
