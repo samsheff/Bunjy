@@ -32,8 +32,16 @@ class User < ActiveRecord::Base
   end
 
   def self.login_with_email(email, password)
-    User.find_by(email: email, password: password)
-  end  
+    user = User.find_by(email: email, password: password)
+    return nil if !user
+    return nil if user.social_only?
+    user
+  end
+
+  def social_only?
+    return false if password && password.length > 5
+    true
+  end
 
   def is_any_admin?
     return true if self.super_admin? or self.admin?

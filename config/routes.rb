@@ -16,7 +16,7 @@ Bunjy::Application.routes.draw do
 
   # Auth
   match '/auth/:provider/callback' => 'sessions#create', via: [:get, :post]
-  post '/auth' => 'sessions#create'
+  post '/auth' => 'sessions#create_with_email'
   get '/signin' => 'sessions#new', :as => :signin
   get '/signout' => 'sessions#destroy', :as => :signout
   get '/auth/failure' => 'sessions#failure'
