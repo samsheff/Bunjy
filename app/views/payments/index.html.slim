@@ -13,24 +13,28 @@
             h3
               | Transactions
             == render 'layouts/messages'
-            table.table
-              thead
-                tr
-                  td
-                    | Type
-                  td
-                    | Amount
-                  td
-                    | Time
-              tbody
-                - for t in @transactions
+            - if @transactions.length > 0
+              table.table
+                thead
                   tr
                     td
-                      - if t.is_a?(Withdrawal)
-                        | Withdrawal
-                      - elsif t.is_a?(Payment)
-                        | Payment
+                      | Type
                     td
-                      | $#{t.amount.to_s}
+                      | Amount
                     td
-                      | #{time_ago_in_words(t.created_at, include_seconds: true)} ago
+                      | Time
+                tbody
+                  - for t in @transactions
+                    tr
+                      td
+                        - if t.is_a?(Withdrawal)
+                          | Withdrawal
+                        - elsif t.is_a?(Payment)
+                          | Payment
+                      td
+                        | $#{t.amount.to_s}
+                      td
+                        | #{time_ago_in_words(t.created_at, include_seconds: true)} ago
+            - else
+              h3
+                | You have no account activity yet!
