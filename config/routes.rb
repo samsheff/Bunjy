@@ -2,7 +2,7 @@ Bunjy::Application.routes.draw do
   root :to => "home#index"
 
   # User Land
-  resources :users, :only => [:index, :show, :edit, :update]
+  resources :users
   resources :payments, :only => [:index, :show, :new, :create]
   resources :withdrawals, :only => [:index, :show, :new, :create]
   resources :payment_methods
@@ -16,6 +16,7 @@ Bunjy::Application.routes.draw do
 
   # Auth
   match '/auth/:provider/callback' => 'sessions#create', via: [:get, :post]
+  post '/auth' => 'sessions#create'
   get '/signin' => 'sessions#new', :as => :signin
   get '/signout' => 'sessions#destroy', :as => :signout
   get '/auth/failure' => 'sessions#failure'

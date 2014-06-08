@@ -1,0 +1,30 @@
+.intro-header style="height: 100%;"
+  .container
+    .row
+      .col-lg-12
+        .intro-message
+          h1
+            | Join Us!
+          h3
+            | If you do, you'll be our friend forever. Seriously.
+          br
+          .col-lg-4.col-md-4.col-sm-4
+          .well.col-lg-4.col-md-4.col-sm-4.col-xs-12
+            h3 style="color: black;"
+              | Create Account
+            == render 'layouts/messages'
+            center
+              form.form-inline action="/users" method="POST"
+                .input-group style="padding-bottom: 5px;"
+                  input.form-control placeholder="Your Full Name" size="20" name="user[name]"
+                .input-group style="padding-bottom: 5px;"
+                  input.form-control size="20" placeholder="Email" name="user[email]"
+                .input-group style="padding-bottom: 5px;"
+                  input.form-control placeholder="Password" size="20" name="user[password]"
+                br
+                input name="authenticity_token" type="hidden" value=form_authenticity_token
+                button.btn.btn-default.btn-lg[href="#"]
+                  i.fa.fa-star.fa-fw
+                  span.network-name
+                    | Sign Up!
+

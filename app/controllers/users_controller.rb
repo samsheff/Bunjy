@@ -1,10 +1,27 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, except: [:locked]
-  before_filter :ensure_correct_user!, except: [:locked]
-  before_filter :active_account!
+  before_filter :authenticate_user!, except: [:locked, :new, :create]
+  before_filter :ensure_correct_user!, except: [:locked, :new, :create]
+  before_filter :active_account!, except: [:new, :create]
 
   def index
     @user = current_user
+  end
+
+  def new
+  end
+
+  def create
+  user_data = secure_params
+  user_data[:balance] = BigDecimal.new("0.0")
+  user = User.create(user_data)
+
+  if user && user.change_role_to!(:customer)
+    session[:user_id] = user.id
+    @current_user = user
+    redirect_to user_path(user)
+  else
+    redirect_to new_user_path, notice: "There was an error creating this account"
+  end
   end
 
   def edit
@@ -29,7 +46,7 @@ class UsersController < ApplicationController
 
   private
   def secure_params
-    params.require(:user).permit(:email)
+    params.require(:user).permit(:email, :name, :password)
   end
 
   def ensure_correct_user!

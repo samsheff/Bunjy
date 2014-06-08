@@ -31,6 +31,10 @@ class User < ActiveRecord::Base
     User.where(uid: uid).first
   end
 
+  def self.login_with_email(email, password)
+    User.find_by(email: email, password: password)
+  end  
+
   def is_any_admin?
     return true if self.super_admin? or self.admin?
     false
@@ -71,7 +75,6 @@ class User < ActiveRecord::Base
     self.save
   end
   
-
   def role_name
     return "Super Admin" if self.super_admin?
     return "Admin" if self.admin?
@@ -87,6 +90,11 @@ class User < ActiveRecord::Base
     self.roles = []
     self.add_role(role)
   end
+
+  def change_role_to!(role)
+    change_role_to(role)
+    self.save
+  end  
 
   def send_money_to(user, amount)
     Payment.create_with_amount(current_user, user, amount)
