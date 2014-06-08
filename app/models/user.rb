@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   rolify
   validates_presence_of :name, :balance
   validates_uniqueness_of :email
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   validates :balance, :numericality => { :greater_than_or_equal_to => 0 }
 
   has_many :payments
