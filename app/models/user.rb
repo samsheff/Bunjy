@@ -105,10 +105,6 @@ class User < ActiveRecord::Base
     self.save
   end  
 
-  def send_money_to(user, amount)
-    Payment.create_with_amount(current_user, user, amount)
-  end
-
   def debit_from_balance(amount)
     self.balance -= amount
   end
