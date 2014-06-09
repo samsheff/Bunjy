@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :user do
-    provider "facebook"
-    uid "12345678998"
     name "Dan Druff"
+    email "dan@druff.com"
+    active true
     balance 0.0
   end
 end

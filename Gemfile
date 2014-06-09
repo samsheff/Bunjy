@@ -44,4 +44,6 @@ end
 group :test do
   gem 'database_cleaner', '1.0.1'
   gem 'email_spec'
+  gem 'stripe-ruby-mock', '~> 1.10.1.7'
+  gem 'terminal-notifier-guard'
 end

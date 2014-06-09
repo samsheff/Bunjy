@@ -2,8 +2,7 @@
 
 FactoryGirl.define do
   factory :payment_method do
-    method_type "MyString"
-    stripe_token "MyString"
+    name "rspec payment method"
     user nil
   end
 end

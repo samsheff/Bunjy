@@ -2,10 +2,8 @@
 
 FactoryGirl.define do
   factory :payment do
-    sender ""
-    recipient ""
-    amount "9.99"
-    description "MyString"
-    fee "9.99"
+    amount 9.99
+    description "Test Payment"
+    fee "0.0"
   end
 end
