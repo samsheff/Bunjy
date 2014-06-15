@@ -1,0 +1,34 @@
+br
+br
+a href="/settings/new"
+  button.btn.btn-success
+    i.fa.fa-plus
+    | &nbspNew Setting
+br
+br
+table.table.table-striped
+  thead
+    tr
+      th #
+      th Setting Name
+      th Value
+      th Data Type
+      th Edit
+      th Delete
+  tbody
+    - for s in @app_settings
+      tr
+        td 
+          | #{s.id}
+        td 
+          | #{s.name}
+        td 
+          | #{s.value(true)}
+        td 
+          | #{s.data_type.capitalize}
+        td
+          a href="/settings/edit/#{s.id}"
+            i.fa.fa-pencil-square-o
+        td
+          a href="/settings/delete/#{s.id}"
+            i.fa.fa-trash-o

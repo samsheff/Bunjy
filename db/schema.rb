@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140608171457) do
+ActiveRecord::Schema.define(version: 20140613192231) do
 
   create_table "identities", force: true do |t|
     t.string  "uid"
@@ -56,6 +56,14 @@ ActiveRecord::Schema.define(version: 20140608171457) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], name: "index_roles_on_name"
+
+  create_table "settings", force: true do |t|
+    t.string   "setting_name"
+    t.string   "setting_value"
+    t.string   "data_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"

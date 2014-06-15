@@ -1,0 +1,10 @@
+.container style="padding-top: 15%;"
+  h2 
+    | Update Setting: #{@setting.name}
+  form action="/settings/update" method="POST"
+    input.form-control name="setting[value]" value="#{@setting.value(true)}"
+    br
+    input name="id" value="#{@setting.id}" type="hidden"
+    input name="authenticity_token" type="hidden" value=form_authenticity_token    
+    button.btn.btn-lg.btn-success style="width:100%" type="submit"
+      | Save

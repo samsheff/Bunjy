@@ -1,0 +1,23 @@
+.container style="padding-top: 15%;"
+  h2 
+    | New Setting
+  form action="/settings" method="POST"
+    input.form-control name="setting[name]" placeholder="Setting Name"
+    br
+    input.form-control name="setting[value]" placeholder="Setting Value"
+    br
+    select.form-control name="setting[data_type]"
+      option value="string" selected="true"
+        | Text
+      option value="boolean"
+        | True/False (Boolean)
+      option value="integer"
+        | Number With No Decimal
+      option value="decimal"
+        | Number With Decimal
+      option value="json"
+        | JSON String
+    br
+    input name="authenticity_token" type="hidden" value=form_authenticity_token    
+    button.btn.btn-lg.btn-success style="width:100%" type="submit"
+      | Save

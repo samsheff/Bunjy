@@ -24,9 +24,10 @@ class MissionControlController < ApplicationController
     render :withdrawals
   end
 
-  private
-  def is_admin
-    redirect_to root_url if !current_user || !current_user.is_any_admin?
+  def settings
+    @user = current_user
+    @app_settings = Setting.all
+    render :settings
   end
 end
 
