@@ -40,4 +40,6 @@ Bunjy::Application.routes.draw do
   get '/signin' => 'sessions#new', :as => :signin
   get '/signout' => 'sessions#destroy', :as => :signout
   get '/auth/failure' => 'sessions#failure'
+  get '/reset-password' => 'sessions#recover_password_form'
+  post '/reset-password' => 'sessions#recover_password'
 end

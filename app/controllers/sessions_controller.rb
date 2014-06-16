@@ -48,6 +48,14 @@ class SessionsController < ApplicationController
     end
   end
 
+  def recover_password
+    PasswordMailer.reset_password(secure_params[:email], User.find_by_email(secure_params[:email]).password).deliver
+  end
+
+  def recover_password_form
+    render :reset_password
+  end
+
   def destroy
     end_session
     redirect_to root_url, :notice => 'Signed out!'
