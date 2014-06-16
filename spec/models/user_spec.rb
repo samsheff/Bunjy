@@ -31,6 +31,16 @@ describe User do
     User.login_with_email("dan@druff.com", "testtest").should == user
   end
 
+  it "can be found with an api key" do
+    user = create(:user)
+    api_user = User.find_by_token(user.api_key)
+    
+    user.should_not == nil
+    api_user.should_not == nil
+    user.name.should == api_user.name 
+    user.id.should == api_user.id 
+  end
+
   it "can find records with an email" do
     user = create(:user)
     User.find_by_email("dan@druff.com").should == user

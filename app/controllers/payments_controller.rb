@@ -5,10 +5,18 @@ class PaymentsController < ApplicationController
   def index
     @user = current_user
     @transactions = current_user.all_account_activity
+    respond_to do |format|
+      format.html
+      format.json { render json: @transactions }
+    end    
   end
   def show
     @user = current_user
     @method = Payment.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render json: @method }
+    end    
   end
 
   def new
@@ -28,7 +36,10 @@ class PaymentsController < ApplicationController
                                            secure_params[:amount],
                                            payment_method)
         if payment
-          redirect_to payments_path, notice: "Payment Sent Successfully!"
+          respond_to do |format|
+            format.html { redirect_to payment_path(payment) }
+            format.json { render json: payment }
+          end
         else
           redirect_to '/payments/new', notice: payment || "There was an Error Sending this Payment"
         end

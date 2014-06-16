@@ -19,7 +19,10 @@ class WithdrawalsController < ApplicationController
                                             secure_params[:amount],
                                             payment_method)
       if withdrawal
-        redirect_to new_withdrawal_path, notice: "Withdrawal Successful! Please allow 3-5 Business days for the money to appear in your account"
+        respond_to do |format|
+          format.html { redirect_to new_withdrawal_path, notice: "Withdrawal Successful! Please allow 3-5 Business days for the money to appear in your account" }
+          format.json { render json: withdrawal }
+        end
       else
         redirect_to new_withdrawal_path, notice: "There was an Error Withdrawing Funds"
       end

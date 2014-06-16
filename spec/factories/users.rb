@@ -5,6 +5,7 @@ FactoryGirl.define do
     name "Dan Druff"
     email "dan@druff.com"
     password "testtest"
+    api_key "1234567890asdfghjklasdfghjklasdfghjkl000"
     active true
     balance 0.0
   end

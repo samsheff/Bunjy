@@ -8,6 +8,18 @@ Bunjy::Application.routes.draw do
   resources :payment_methods
   get '/locked' => 'users#locked'
 
+  # API Land
+  namespace :api do
+    namespace :v1 do
+      resources :users
+      resources :payments
+      resources :payment_methods
+      resources :withdrawals
+    end
+    match 'v:api/*path', :to => redirect("/api/v2/%{path}"), via: [:get, :post]
+    match '*path', :to => redirect("/api/v2/%{path}"), via: [:get, :post]
+  end
+
   # Mission Control
   get '/mission-control' => 'mission_control#index'
   get '/mission-control/users' => 'mission_control#users'

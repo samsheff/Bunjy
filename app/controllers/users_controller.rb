@@ -5,6 +5,10 @@ class UsersController < ApplicationController
 
   def index
     @user = current_user
+    respond_to do |format|
+      format.html
+      format.json { render json: @user }
+    end
   end
 
   def new
@@ -31,14 +35,24 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(secure_params)
-      redirect_to @user
+      respond_to do |format|
+        format.html { redirect_to @user }
+        format.json { render :json => @user }
+      end      
     else
-      render :edit
+      respond_to do |format|
+        format.html
+        format.json { render json: { error: "There was an error updating the User" } }
+      end      
     end
   end
 
   def show
     @user = User.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render json: @user }
+    end    
   end
 
   def locked

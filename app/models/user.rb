@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   rolify
-  validates_presence_of :name, :balance
+  validates_presence_of :name, :balance, :api_key
   validates_uniqueness_of :email
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   validates :balance, :numericality => { :greater_than_or_equal_to => 0 }
@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
       user.balance = 0.0
       user.change_role_to(:customer)
       user.active = true
+      user.api_key = user.generate_api_key
     end
   end
 
@@ -30,6 +31,10 @@ class User < ActiveRecord::Base
 
   def self.find_by_uid(uid)
     User.where(uid: uid).first
+  end
+
+  def self.find_by_token(access_token)
+    User.find_by(api_key: access_token) if access_token
   end
 
   def self.login_with_email(email, password)
@@ -121,6 +126,11 @@ class User < ActiveRecord::Base
 
     activity.sort_by! { |t| t.created_at }
     activity.reverse
+  end
+
+  def generate_api_key
+    o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+    (0...50).map { o[rand(o.length)] }.join
   end
 
 end

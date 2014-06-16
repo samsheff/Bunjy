@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   http_basic_authenticate_with name: "bunjycash", password: "likeaboss" if Rails.env.staging?
 
+  before_filter :valid_api_key?
+  
   helper_method :current_user
   helper_method :current_user=
   helper_method :user_signed_in?
@@ -16,6 +18,27 @@ class ApplicationController < ActionController::Base
   def current_user=(user)
     session[:user_id] = user.id
     @current_user = User.find_by(id: session[:user_id])
+  end
+  
+  def valid_api_key?
+    if format_json?
+      render json: { error: "Invalid Access Token" } unless lookup_token(params[:token])
+    end
+  end
+
+  def lookup_token(access_token)
+    user = User.find_by_token(access_token)
+    if user
+      session[:user_id] = user.id
+      @current_user = user
+      user
+    else
+      nil
+    end
+  end
+
+  def format_json?
+    request.format.json?
   end
 
   def signed_in?
