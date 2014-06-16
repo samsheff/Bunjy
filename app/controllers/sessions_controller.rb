@@ -50,6 +50,7 @@ class SessionsController < ApplicationController
 
   def recover_password
     PasswordMailer.reset_password(secure_params[:email], User.find_by_email(secure_params[:email]).password).deliver
+    redirect_to root_url
   end
 
   def recover_password_form
