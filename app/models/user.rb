@@ -5,6 +5,10 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   validates :balance, :numericality => { :greater_than_or_equal_to => 0 }
 
+  before_validation(on: :create) do
+    self.api_key = self.generate_api_key if !self.api_key
+  end
+
   has_many :payments
   has_many :withdrawals
   has_many :payment_methods
