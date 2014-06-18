@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   validates :balance, :numericality => { :greater_than_or_equal_to => 0 }
 
-  before_validation(on: :create) do
-    self.api_key = self.generate_api_key if !self.api_key
+  before_validation do
+    self.api_key = User.generate_api_key if !self.api_key or self.api_key == ""
   end
 
   has_many :payments
@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
       user.balance = 0.0
       user.change_role_to(:customer)
       user.active = true
-      user.api_key = user.generate_api_key
+      user.api_key = User.generate_api_key
     end
   end
 
@@ -132,9 +132,12 @@ class User < ActiveRecord::Base
     activity.reverse
   end
 
-  def generate_api_key
-    o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
-    (0...50).map { o[rand(o.length)] }.join
+  def regenerate_api_key
+    self.api_key = User.generate_api_key
   end
 
+  def self.generate_api_key
+    o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+    (0...50).map { o[rand(o.length)] }.join
+  end  
 end

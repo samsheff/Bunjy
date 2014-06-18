@@ -153,4 +153,21 @@ describe User do
     activity.should be_a Array
     activity.length.should == 10
   end
+
+  it "Has an API Key" do
+    user = build(:user)
+    user.api_key.should_not == nil
+    user.api_key.should_not == ""
+    user.api_key.should be_a(String)
+    user.save.should == true
+
+    user.api_key = nil
+    user.save.should == true
+    user.api_key.should_not == nil
+
+    user.api_key = ""
+    user.save.should == true
+    user.api_key.should_not == nil
+    user.api_key.length.should == 50
+  end
 end
