@@ -13,13 +13,16 @@
 
 ActiveRecord::Schema.define(version: 20140616043650) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "identities", force: true do |t|
     t.string  "uid"
     t.string  "provider"
     t.integer "user_id"
   end
 
-  add_index "identities", ["user_id"], name: "index_identities_on_user_id"
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "payment_methods", force: true do |t|
     t.string   "method_type"
@@ -34,7 +37,7 @@ ActiveRecord::Schema.define(version: 20140616043650) do
     t.integer  "direction"
   end
 
-  add_index "payment_methods", ["user_id"], name: "index_payment_methods_on_user_id"
+  add_index "payment_methods", ["user_id"], name: "index_payment_methods_on_user_id", using: :btree
 
   create_table "payments", force: true do |t|
     t.integer  "user_id"
@@ -54,8 +57,8 @@ ActiveRecord::Schema.define(version: 20140616043650) do
     t.datetime "updated_at"
   end
 
-  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
-  add_index "roles", ["name"], name: "index_roles_on_name"
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "settings", force: true do |t|
     t.string   "setting_name"
@@ -83,7 +86,7 @@ ActiveRecord::Schema.define(version: 20140616043650) do
     t.integer "role_id"
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
   create_table "withdrawals", force: true do |t|
     t.integer  "user_id"
@@ -92,6 +95,6 @@ ActiveRecord::Schema.define(version: 20140616043650) do
     t.datetime "updated_at"
   end
 
-  add_index "withdrawals", ["user_id"], name: "index_withdrawals_on_user_id"
+  add_index "withdrawals", ["user_id"], name: "index_withdrawals_on_user_id", using: :btree
 
 end
